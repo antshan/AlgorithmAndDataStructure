@@ -22,12 +22,13 @@ public class Code04_CopyListWithRandom {
     public static Node copyListWithRand1(Node head) {
         Node cur = head;
         Map<Node, Node> map = new HashMap<>();
-        while (cur != null) {
+        while (cur != null){
             map.put(cur, new Node(cur.value));
             cur = cur.next;
         }
+
         cur = head;
-        while (cur != null) {
+        while (cur != null){
             map.get(cur).next = map.get(cur.next);
             map.get(cur).rand = map.get(cur.rand);
             cur = cur.next;
@@ -37,35 +38,29 @@ public class Code04_CopyListWithRandom {
 
     // 方法二：在原节点后面插入相同值的节点，再将两个链表分开
     public static Node copyListWithRand2(Node head) {
-        if (head == null) {
+        if (head == null){
             return head;
         }
         Node cur = head;
         Node next = null;
-        // 每个节点后面插入相同值的节点
-        while (cur != null) {
+        while (cur != null){
             next = cur.next;
             cur.next = new Node(cur.value);
             cur.next.next = next;
             cur = next;
         }
-        Node copyNode = null;
+
         cur = head;
-        // 设置copy节点的rand指针
-        while (cur != null) {
-            next = cur.next.next;
-            copyNode = cur.next;
-            copyNode.rand = cur.rand != null ? cur.rand.next : null;
-            cur = next;
+        while (cur != null){
+            cur.next.rand = cur.rand != null ? cur.rand.next : null;
+            cur = cur.next.next;
         }
-        Node res = head.next;
+
         cur = head;
-        // 断开新旧节点
-        while (cur != null) {
-            next = cur.next.next;
-            copyNode = cur.next;
-            cur.next = next;
-            copyNode.next = next != null ? next.next : null;
+        Node res = head.next;
+        while (cur != null){
+            next = cur.next;
+            cur.next = next != null ? next.next : null;
             cur = next;
         }
         return res;
