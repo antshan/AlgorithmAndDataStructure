@@ -7,16 +7,6 @@ import java.util.Stack;
  */
 public class Code02_UnRecursiveTraversalBT {
 
-    public static class Node{
-        public int value;
-        public Node left;
-        public Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
-
     public static void pre(Node head){
         if (head == null){
             return;
@@ -31,7 +21,7 @@ public class Code02_UnRecursiveTraversalBT {
             if (head.left != null){
                 stack.push(head.left);
             }
-            System.out.print(head.value+" ");
+            System.out.print(head.value + " ");
         }
         System.out.println();
     }
@@ -41,13 +31,13 @@ public class Code02_UnRecursiveTraversalBT {
             return;
         }
         Stack<Node> stack = new Stack<>();
-        while (!stack.isEmpty() || head!=null){
+        while (!stack.isEmpty() || head != null){
             if (head != null){
                 stack.push(head);
                 head = head.left;
             }else {
                 head = stack.pop();
-                System.out.print(head.value+" ");
+                System.out.print(head.value + " ");
                 head = head.right;
             }
         }
@@ -55,7 +45,6 @@ public class Code02_UnRecursiveTraversalBT {
     }
 
     public static void pos1(Node head){
-        // 使用两个栈实现后序遍历
         if (head == null){
             return;
         }
@@ -71,9 +60,8 @@ public class Code02_UnRecursiveTraversalBT {
             if (head.right != null){
                 stack1.push(head.right);
             }
-
         }
-        while (!stack2.isEmpty()) {
+        while (!stack2.isEmpty()){
             System.out.print(stack2.pop().value + " ");
         }
         System.out.println();

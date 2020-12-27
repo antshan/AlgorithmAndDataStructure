@@ -1,7 +1,6 @@
 package com.basic.algorithm.class07;
 
-import com.sun.xml.internal.org.jvnet.mimepull.CleanUpExecutorFactory;
-
+import javax.print.attribute.standard.NumberUp;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -11,26 +10,16 @@ import java.util.Stack;
  */
 public class Code04_SerializeAndReconstructTree {
 
-    public static class Node {
-        public int value;
-        public Node left;
-        public Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
-
     public static Queue<String> preSerial(Node head) {
-        Queue<String> ans = new LinkedList<>();
-        pre(head, ans);
-        return ans;
+        Queue<String> res = new LinkedList<>();
+        pre(head, res);
+        return res;
     }
 
     private static void pre(Node head, Queue<String> ans) {
-        if (head == null) {
+        if (head == null){
             ans.add(null);
-        } else {
+        }else {
             ans.add(String.valueOf(head.value));
             pre(head.left, ans);
             pre(head.right, ans);
@@ -38,15 +27,15 @@ public class Code04_SerializeAndReconstructTree {
     }
 
     public static Queue<String> inSerial(Node head) {
-        Queue<String> ans = new LinkedList<>();
-        in(head, ans);
-        return ans;
+        Queue<String> res = new LinkedList<>();
+        in(head, res);
+        return res;
     }
 
     private static void in(Node head, Queue<String> ans) {
-        if (head == null) {
+        if (head == null){
             ans.add(null);
-        } else {
+        }else {
             in(head.left, ans);
             ans.add(String.valueOf(head.value));
             in(head.right, ans);
@@ -54,23 +43,23 @@ public class Code04_SerializeAndReconstructTree {
     }
 
     public static Queue<String> posSerial(Node head){
-        Queue<String> ans = new LinkedList<>();
-        pos(head,ans);
-        return ans;
+        Queue<String> res = new LinkedList<>();
+        pos(head, res);
+        return res;
     }
 
     private static void pos(Node head, Queue<String> ans) {
         if (head == null){
             ans.add(null);
         }else {
-            pos(head.left,ans);
-            pos(head.right,ans);
+            pos(head.left, ans);
+            pos(head.right, ans);
             ans.add(String.valueOf(head.value));
         }
     }
 
     public static Node buildByPreQueue(Queue<String> preList){
-        if (preList == null || preList.size() ==0){
+        if (preList.isEmpty() || preList == null){
             return null;
         }
         return preb(preList);
@@ -81,14 +70,14 @@ public class Code04_SerializeAndReconstructTree {
         if (value == null){
             return null;
         }
-        Node node = new Node(Integer.valueOf(value));
-        node.left = preb(preList);
-        node.right = preb(preList);
-        return node;
+        Node head = new Node(Integer.valueOf(value));
+        head.left = preb(preList);
+        head.right = preb(preList);
+        return head;
     }
 
     public static Node buildByPosQueue(Queue<String> posList){
-        if (posList == null || posList.size() == 0){
+        if (posList.isEmpty() || posList == null){
             return null;
         }
         Stack<String> stack = new Stack<>();
@@ -99,53 +88,50 @@ public class Code04_SerializeAndReconstructTree {
     }
 
     private static Node posb(Stack<String> posList) {
-        String val = posList.pop();
-        if (val == null){
+        String value = posList.pop();
+        if (value == null){
             return null;
         }
-        Node node = new Node(Integer.valueOf(val));
-        node.right = posb(posList);
-        node.left = posb(posList);
-        return node;
+        Node head = new Node(Integer.valueOf(value));
+        head.right = posb(posList);
+        head.left = posb(posList);
+        return head;
     }
 
     public static Queue<String> levelSerial(Node head){
-        Queue<String> ans = new LinkedList<>();
+        Queue<String> res = new LinkedList<>();
         if (head == null){
-            ans.add(null);
+            res.add(null);
         }else {
             Queue<Node> queue = new LinkedList<>();
-            ans.add(String.valueOf(head.value));
             queue.add(head);
+            res.add(String.valueOf(head.value));
             while (!queue.isEmpty()){
                 head = queue.poll();
                 if (head.left != null){
                     queue.add(head.left);
-                    ans.add(String.valueOf(head.left.value));
+                    res.add(String.valueOf(head.left.value));
                 }else {
-                    ans.add(null);
+                    res.add(null);
                 }
-
                 if (head.right != null){
                     queue.add(head.right);
-                    ans.add(String.valueOf(head.right.value));
+                    res.add(String.valueOf(head.right.value));
                 }else {
-                    ans.add(null);
+                    res.add(null);
                 }
             }
         }
-        return ans;
+        return res;
     }
 
     public static Node buildByLevelQueue(Queue<String> levelList){
-        if (levelList == null || levelList.size()==0){
+        if (levelList == null){
             return null;
         }
-        Node head = generateNode(levelList.poll());
         Queue<Node> queue = new LinkedList<>();
-        if (head != null){
-            queue.add(head);
-        }
+        Node head = generateNode(levelList.poll());
+        queue.add(head);
         Node cur = null;
         while (!queue.isEmpty()){
             cur = queue.poll();

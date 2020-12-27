@@ -9,16 +9,6 @@ import java.util.Queue;
  */
 public class Code03_LevelTraversalBT {
 
-    public static class Node{
-        public int value;
-        public Node left;
-        public Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
-
     // 按层遍历数，输出节点
     public static void level(Node head){
         if (head == null){
@@ -28,13 +18,13 @@ public class Code03_LevelTraversalBT {
         queue.add(head);
         while (!queue.isEmpty()){
             head = queue.poll();
-            System.out.print(head.value + " ");
             if (head.left != null){
                 queue.add(head.left);
             }
             if (head.right != null){
                 queue.add(head.right);
             }
+            System.out.print(head.value + " ");
         }
         System.out.println();
     }

@@ -5,16 +5,6 @@ package com.basic.algorithm.class07;
  */
 public class Code01_RecursiveTraversalBT {
 
-    public static class Node{
-        public int value;
-        public Node left;
-        public Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
-
     public static void pre(Node head){
         if (head == null){
             return;
