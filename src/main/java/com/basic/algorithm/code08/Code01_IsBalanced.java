@@ -1,38 +1,29 @@
 package com.basic.algorithm.code08;
 
+import com.basic.algorithm.class07.Node;
+
 public class Code01_IsBalanced {
 
-    public static class Node {
-        private int value;
-        private Node left;
-        private Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
-
     public static boolean isBalanced1(Node head) {
-        boolean[] ans = new boolean[1];
-        ans[0] = true;
-        process1(head, ans);
-        return ans[0];
+        boolean[] res = {true};
+        process1(head, res);
+        return res[0];
     }
 
-    private static int process1(Node head, boolean[] ans) {
-        if (!ans[0] || head == null) {
-            return -1;
+    private static int process1(Node node, boolean[] res) {
+        if (!res[0] || node == null){
+            return 0;
         }
-        int leftHeight = process1(head.left, ans);
-        int rightHeight = process1(head.right, ans);
-        if (Math.abs(leftHeight - rightHeight) > 1) {
-            ans[0] = false;
+        int leftHeight = process1(node.left, res);
+        int rightHeight = process1(node.right, res);
+        if (Math.abs(leftHeight - rightHeight) > 1){
+            res[0] = false;
         }
-        return Math.max(leftHeight, rightHeight) + 1;
+        return Math.max(leftHeight,rightHeight) + 1;
+
     }
 
-    public static class Info {
-
+    public static class Info{
         private int height;
         private boolean isBalanced;
 
@@ -46,19 +37,20 @@ public class Code01_IsBalanced {
         return process2(head).isBalanced;
     }
 
-    public static Info process2(Node head) {
-        if (head == null) {
+    public static Info process2(Node node){
+        if (node == null){
             return new Info(0, true);
         }
-        Info leftNodeInfo = process2(head.left);
-        Info rightNodeInfo = process2(head.right);
-        int height = Math.max(leftNodeInfo.height, rightNodeInfo.height) + 1;
+        Info leftInfo = process2(node.left);
+        Info rightInfo = process2(node.right);
         boolean isBalanced = true;
-        if (!leftNodeInfo.isBalanced || !rightNodeInfo.isBalanced || Math.abs(leftNodeInfo.height - rightNodeInfo.height) > 1) {
+        if (!leftInfo.isBalanced || !rightInfo.isBalanced || Math.abs(leftInfo.height- rightInfo.height)>1){
             isBalanced = false;
         }
+        int height = Math.max(leftInfo.height, rightInfo.height) + 1;
         return new Info(height, isBalanced);
     }
+
 
     public static Node generateRandomBST(int maxLevel, int maxValue) {
         return generate(1, maxLevel, maxValue);
@@ -78,18 +70,16 @@ public class Code01_IsBalanced {
     public static void main(String[] args) {
         int maxLevel = 5;
         int maxValue = 100;
-        int testTimes = 10000000;
+        int testTimes = 100000000;
         for (int i = 0; i < testTimes; i++) {
             Node head = generateRandomBST(maxLevel, maxValue);
-            if (isBalanced1(head) != isBalanced2(head)) {
+            boolean res1;boolean res2;
+            if ((res1 = isBalanced1(head)) != (res2 = isBalanced2(head))) {
                 System.out.println("Oops!");
             }
-//            if (!isBalanced1(head)){
-//                System.out.println(isBalanced1(head));
-//            }
-//            if (!isBalanced2(head)){
-//                System.out.println(isBalanced2(head));
-//            }
+//            System.out.print(res1+" ");
+//            System.out.print(res2+" ");
+//            System.out.print("|| ");
         }
         System.out.println("finish!");
     }

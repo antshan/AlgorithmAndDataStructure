@@ -1,24 +1,14 @@
 package com.basic.algorithm.code08;
 
+import com.basic.algorithm.class07.Node;
+
 public class Code02_IsFull {
-
-    public static class Node {
-        private int value;
-        private Node left;
-        private Node right;
-
-        public Node(int value) {
-            this.value = value;
-        }
-    }
 
     public static boolean isFull1(Node head) {
         if (head == null) {
             return true;
         }
-        int height = getHeight(head);
-        int nodes = getNodes(head);
-        return (1 << height) - 1 == nodes;  // 完全二叉树满足2^height -1 == nodes
+        return ((1 << getHeight(head)) - 1) == getNodes(head);
     }
 
     public static int getHeight(Node head) {
@@ -35,34 +25,35 @@ public class Code02_IsFull {
         return getNodes(head.left) + getNodes(head.right) + 1;
     }
 
-    public static class Info{
-        private int heights;
+    public static class Info {
+        private int height;
         private int nodes;
 
-        public Info(int heights, int nodes) {
-            this.heights = heights;
+        public Info(int height, int nodes) {
+            this.height = height;
             this.nodes = nodes;
         }
     }
 
-    public static boolean isFull2(Node head){
-        if (head == null){
+    public static boolean isFull2(Node head) {
+        if (head == null) {
             return true;
         }
-        Info info = process2(head);
-        return (1 << info.heights) -1 == info.nodes;
+        Info info = process(head);
+        return ((1 << info.height) - 1) == info.nodes;
     }
 
-    private static Info process2(Node head) {
-        if (head == null){
-            return new Info(0,0);
+    private static Info process(Node head) {
+        if (head == null) {
+            return new Info(0, 0);
         }
-        Info leftInfo = process2(head.left);
-        Info rightInfo = process2(head.right);
-        int heights = Math.max(leftInfo.heights,rightInfo.heights)+1;
-        int nodes = leftInfo.nodes+rightInfo.nodes+1;
-        return new Info(heights,nodes);
+        Info leftInfo = process(head.left);
+        Info rightInfo = process(head.right);
+        int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+        int nodes = leftInfo.nodes + rightInfo.nodes + 1;
+        return new Info(height, nodes);
     }
+
 
     // for test
     public static Node generateRandomBST(int maxLevel, int maxValue) {
