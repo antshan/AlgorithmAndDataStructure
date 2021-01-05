@@ -1,10 +1,6 @@
-package com.basic.algorithm.code08;
+package com.basic.algorithm.class08;
 
 import com.basic.algorithm.class07.Node;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
 public class Code08_MaxDistance {
 

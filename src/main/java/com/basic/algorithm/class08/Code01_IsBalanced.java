@@ -1,4 +1,4 @@
-package com.basic.algorithm.code08;
+package com.basic.algorithm.class08;
 
 import com.basic.algorithm.class07.Node;
 
