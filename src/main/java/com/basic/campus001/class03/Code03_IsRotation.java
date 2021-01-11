@@ -2,8 +2,8 @@ package com.basic.campus001.class03;
 
 public class Code03_IsRotation {
 
-    public static boolean isRotation(String s1,String s2){
-        if (s1 == null || s2 == null || s1.length() != s2.length()){
+    public static boolean isRotation(String s1, String s2) {
+        if (s1 == null || s2 == null || s1.length() != s2.length()) {
             return false;
         }
         String s = s1 + s1;
