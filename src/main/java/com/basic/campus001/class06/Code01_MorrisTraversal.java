@@ -110,6 +110,7 @@ public class Code01_MorrisTraversal {
             cur = cur.right;
         }
         printEdge(head);
+        System.out.println();
     }
 
     private static void printEdge(Node head) {
@@ -134,6 +135,36 @@ public class Code01_MorrisTraversal {
         return pre;
     }
 
+    public static boolean isBST(Node head){
+        if (head == null){
+            return true;
+        }
+        Node cur = head;
+        Node mostRight = null;
+        Integer pre = null;
+        while (cur != null){
+            mostRight = cur.left;
+            if (mostRight != null){
+                while (mostRight.right != null && mostRight.right != cur){
+                    mostRight = mostRight.right;
+                }
+                if (mostRight.right == null){
+                    mostRight.right = cur;
+                    cur = cur.left;
+                    continue;
+                }else {
+                    mostRight.right = null;
+                }
+            }
+            if (pre != null && pre >= cur.value){
+                return false;
+            }
+            pre = cur.value;
+            cur= cur.right;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Node head = new Node(4);
         head.left = new Node(2);
@@ -146,5 +177,6 @@ public class Code01_MorrisTraversal {
         morrisPre(head);
         morrisPos(head);
 
+        System.out.println(isBST(head));
     }
 }
