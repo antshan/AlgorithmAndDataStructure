@@ -12,7 +12,7 @@ public class Code01_Manacher {
         int[] pArr = new int[str.length];
         int max = 0;
         for (int i = 0; i < str.length; i++) {
-            pArr[i] = i < R ? Math.min(R - i, 2 * C - i) : 1;
+            pArr[i] = i < R ? Math.min(R - i, pArr[2 * C - i]) : 1;
             while (i + pArr[i] < str.length && i - pArr[i] > -1) {
                 if (str[i + pArr[i]] == str[i - pArr[i]]) {
                     pArr[i]++;
@@ -40,7 +40,7 @@ public class Code01_Manacher {
     }
 
     public static void main(String[] args) {
-        String s = "abbacd";
+        String s = "aacabdkacaa";
         System.out.println(manacher(s));
     }
 }
